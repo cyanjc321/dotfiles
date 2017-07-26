@@ -1,0 +1,38 @@
+From a7633c68effd5491df8247f645554782652fe89e Mon Sep 17 00:00:00 2001
+From: Chao Jiang <chao.jiang@manchester.ac.uk>
+Date: Wed, 26 Jul 2017 15:00:38 +0100
+Subject: [PATCH 2/2] ZSH: use gpg agent for ssh keys
+
+---
+ zsh/zshrc | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/zsh/zshrc b/zsh/zshrc
+index 9f92888..bb93c3a 100644
+--- a/zsh/zshrc
++++ b/zsh/zshrc
+@@ -17,4 +17,20 @@ antigen use oh-my-zsh
+ antigen theme robbyrussell
+ antigen apply
+ # End of lines for antigen setup
+-     
++# Lines for GPG and SSH
++  # Set GPG TTY
++export GPG_TTY=$(tty)
++  # Refresh gpg-agent tty in case user switches into an X session
++gpg-connect-agent updatestartuptty /bye >/dev/null
++
++  # Start the gpg-agent if not already running
++if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
++  gpg-connect-agent /bye >/dev/null 2>&1
++fi
++
++  # Set SSH to use gpg-agent
++unset SSH_AGENT_PID
++if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
++  export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
++fi
++# End of lines for GPG and SSH
+-- 
+2.13.3
+
