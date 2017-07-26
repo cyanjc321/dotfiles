@@ -1,0 +1,38 @@
+[general]
+ui = TTY.TTYUI
+accounts = main
+pythonfile=~/.mutt/offlineimap.py
+fsync = False
+
+[Account main]
+localrepository = uni-local
+remoterepository = uni-remote
+
+[Repository uni-local]
+type = Maildir
+localfolders = ~/.mail/uni
+nametrans = lambda folder: {'drafts':  'Drafts',
+                            'sent':    'Sent Items',
+                            'trash':   'Deleted Items',
+                            'archive': 'Archive',
+                            }.get(folder, folder)
+
+[Repository uni-remote]
+type = IMAP
+remotehost = outlook.office365.com
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+remoteuser = chao.jiang-2@student.manchester.ac.uk
+remotepasseval = get_pass("uni-account") 
+nametrans = lambda folder: {'Drafts':			'drafts',
+                            'Sent Items':		'sent',
+                            'Deleted Items':	'trash',
+                            'Archive':			'archive',
+                            }.get(folder, folder)
+
+folderfilter = lambda folder: folder in ['INBOX',
+										'Sent Items',
+										'Deleted Items',
+										'Archive',
+										'Drafts']
+
+

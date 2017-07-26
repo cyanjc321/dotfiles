@@ -1,0 +1,8 @@
+base16-ocean-dark-syntax-theme
+markdown-writer
+monokai
+pen-paper-coffee-syntax
+split-diff
+vim-mode-plus
+wombat-dark-syntax
+Zen
