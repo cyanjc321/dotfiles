@@ -1,0 +1,42 @@
+From 2a26e905b582a25077dcd9356c9c6b2e57d80474 Mon Sep 17 00:00:00 2001
+From: Chao Jiang <changjinglu2@hotmail.com>
+Date: Thu, 27 Jul 2017 05:29:02 +0100
+Subject: [PATCH 1/2] VIM: adapted font, backspace behavior and vundle for
+ windows
+
+---
+ vim/vimrc | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/vim/vimrc b/vim/vimrc
+index 616e477..4be6a99 100644
+--- a/vim/vimrc
++++ b/vim/vimrc
+@@ -2,10 +2,10 @@ set nocompatible              " be iMproved, required
+ filetype off                  " required
+ 
+ " set the runtime path to include Vundle and initialize
+-set rtp+=~/.vim/bundle/Vundle.vim
+-call vundle#begin()
++set rtp+=$HOME/vimfiles/bundle/Vundle.vim
++call vundle#begin('$HOME/vimfiles/bundle/')
+ " alternatively, pass a path where Vundle should install plugins
+-"call vundle#begin('~/some/path/here')
++"call vundle#begin('$HOME/vimfiles/bundle/''~/some/path/here')
+ 
+ " let Vundle manage Vundle, required
+ Plugin 'VundleVim/Vundle.vim'
+@@ -112,7 +112,9 @@ set exrc
+ set secure
+ set hlsearch
+ set nu
+-set guifont=Andale\ Mono:h11
++set guifont=Consolas:h10
++set guioptions-=T    "remove toolbar
++set backspace=indent,eol,start
+ 
+ " key remap
+ " split navigation
+-- 
+2.13.2.windows.1
+
