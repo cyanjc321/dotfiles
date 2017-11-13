@@ -42,6 +42,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-fugitive'
 Plugin 'euclio/vim-nocturne'
+Plugin 'nightsense/office'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'vim-airline/vim-airline'
@@ -106,7 +107,7 @@ set laststatus=2
 
 "##############################################################################################
 " miscellaneous
-colorscheme nocturne
+colorscheme office-dark
 syntax enable
 set exrc
 set secure
