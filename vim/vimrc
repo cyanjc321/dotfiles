@@ -26,33 +26,49 @@ Plugin 'VundleVim/Vundle.vim'
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
-Plugin 'cyanjc321/Smart-Tabs'
+
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+" Auto complete
 " Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'jeaye/color_coded'
 Plugin 'rdnetto/YCM-Generator'
+Plugin 'jeaye/color_coded'
+
 " Plugin 'taglist.vim'
 Plugin 'majutsushi/tagbar'
 Bundle 'craigemery/vim-autotag'
+
 " Track the engine.
 Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+Plugin 'cyanjc321/Smart-Tabs'
+Plugin 'godlygeek/tabular'
+Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-fugitive'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'tpope/vim-dispatch'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'rhysd/vim-clang-format'
+
+" Language support
+Plugin 'vhda/verilog_systemverilog.vim'
+Plugin 'gabrielelana/vim-markdown'
+Plugin 'jceb/vim-orgmode'
+Plugin 'OrangeT/vim-csharp'
+
+" Color schemes
+Plugin 'CSApprox'
 Plugin 'euclio/vim-nocturne'
 Plugin 'nightsense/office'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'CSApprox'
-Plugin 'godlygeek/tabular'
-Plugin 'gabrielelana/vim-markdown'
-Plugin 'jceb/vim-orgmode'
-Plugin 'tpope/vim-speeddating'
-Plugin 'vhda/verilog_systemverilog.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
