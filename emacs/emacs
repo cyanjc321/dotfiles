@@ -17,7 +17,9 @@
 ;; Org plus contrib needs to be loaded before any org related functionality is called
 (unless (package-installed-p 'org-plus-contrib)
   (package-refresh-contents)
-  (package-install 'org-plus-contrib))
+  (package-install 'org-plus-contrib)
+  (package-install 'ox-gfm)
+  (package-install 'htmlize))
 
 (setq user-full-name "Chao Jiang")
 
@@ -592,6 +594,9 @@
   "o q"   "org special edit quit"
   "a s"   "mark org subtree"
   "o RET" "org open link")
+
+(eval-after-load "org"
+     '(require 'ox-gfm nil t))            
 
 (use-package helm
   :ensure t
