@@ -87,7 +87,7 @@ filetype plugin indent on    " required
 
 "##############################################################################################
 " smart tab settings
-:set noet ci pi sts=0 sw=4 ts=4
+:set et ci pi sts=0 sw=4 ts=4
 
 "##############################################################################################
 " syntastic settings
@@ -124,6 +124,7 @@ set laststatus=2
 "##############################################################################################
 " verilog_systemverilog
 let g:verilog_disable_indent_lst = "module,class,interface"
+
 "##############################################################################################
 " miscellaneous
 colorscheme office-dark
@@ -142,4 +143,4 @@ nnoremap <c-W k>: c-k
 nnoremap <c-W l>: c-l
 
 " remove trailing space for some languages
-autocmd FileType c,cpp,java,php,verilog_systemverilog,python,ruby,sh,zsh autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType c,cpp,java,php,verilog_systemverilog,python,ruby,sh,zsh,cs autocmd BufWritePre <buffer> %s/\s\+$//e
