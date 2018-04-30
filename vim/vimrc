@@ -142,4 +142,4 @@ nnoremap <c-W k>: c-k
 nnoremap <c-W l>: c-l
 
 " remove trailing space for some languages
-autocmd FileType c,cpp,java,php,verilog_systemverilog autocmd BufWritePre <buffer> %s/\s\+$//e
+autocmd FileType c,cpp,java,php,verilog_systemverilog,python,ruby,sh,zsh autocmd BufWritePre <buffer> %s/\s\+$//e
