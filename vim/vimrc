@@ -69,6 +69,7 @@ Plugin 'CSApprox'
 Plugin 'euclio/vim-nocturne'
 Plugin 'nightsense/office'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'romainl/Apprentice'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -127,13 +128,14 @@ let g:verilog_disable_indent_lst = "module,class,interface"
 
 "##############################################################################################
 " miscellaneous
-colorscheme office-dark
+colorscheme apprentice
+
 syntax enable
 set exrc
 set secure
 set hlsearch
 set nu
-set guifont=Andale\ Mono:h11
+set guifont=monaco:h11
 
 " key remap
 " split navigation
