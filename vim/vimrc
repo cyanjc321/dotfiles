@@ -134,7 +134,7 @@ set exrc
 set secure
 set hlsearch
 set nu
-set guifont=monaco:h11
+set guifont=monaco:h10
 
 " key remap
 " split navigation
@@ -145,3 +145,4 @@ nnoremap <c-W l>: c-l
 
 " remove trailing space for some languages
 autocmd FileType c,cpp,java,php,verilog_systemverilog,python,ruby,sh,zsh,cs autocmd BufWritePre <buffer> %s/\s\+$//e
+
