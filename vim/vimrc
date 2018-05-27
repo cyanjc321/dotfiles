@@ -69,7 +69,6 @@ Plugin 'CSApprox'
 Plugin 'euclio/vim-nocturne'
 Plugin 'nightsense/office'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'romainl/Apprentice'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -124,11 +123,11 @@ set laststatus=2
 
 "##############################################################################################
 " verilog_systemverilog
-let g:verilog_disable_indent_lst = "module,class,interface"
+let g:verilog_disable_indent_lst = "module,interface,preproc,eos"
 
 "##############################################################################################
 " miscellaneous
-colorscheme apprentice
+colorscheme wombat256mod
 
 syntax enable
 set exrc
