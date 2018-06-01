@@ -88,11 +88,11 @@
 (recentf-mode)
 
 (cond ((eq system-type 'gnu/linux)
-       (set-frame-font "Andale Mono"))
+       (set-frame-font "Hack-10"))
       ((eq system-type 'darwin)
-       (set-frame-font "Andale Mono"))
+       (set-frame-font "Andale Mono-10"))
       ((eq system-type 'windows-nt)
-       (set-frame-font "Consolas")))
+       (set-frame-font "Consolas-10")))
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -102,70 +102,70 @@
 (require 'bind-key)                ;; if you use any :bind variant
 
 (use-package dired
-  :bind (:map dired-mode-map
-              ("C-c C-e" . wdired-change-to-wdired-mode))
-  :init
-  (setq dired-dwim-target t
-        dired-recursive-copies 'top
-        dired-recursive-deletes 'top
-        dired-listing-switches "-alh")
-  :config
-  (add-hook 'dired-mode-hook 'dired-hide-details-mode))
+             :bind (:map dired-mode-map
+                         ("C-c C-e" . wdired-change-to-wdired-mode))
+             :init
+             (setq dired-dwim-target t
+                   dired-recursive-copies 'top
+                   dired-recursive-deletes 'top
+                   dired-listing-switches "-alh")
+             :config
+             (add-hook 'dired-mode-hook 'dired-hide-details-mode))
 
 (use-package diminish
-  :ensure t
-  :demand t
-  :diminish (visual-line-mode . "ω")
-  :diminish hs-minor-mode
-  :diminish abbrev-mode
-  :diminish auto-fill-function
-  :diminish subword-mode)
+             :ensure t
+             :demand t
+             :diminish (visual-line-mode . "ω")
+             :diminish hs-minor-mode
+             :diminish abbrev-mode
+             :diminish auto-fill-function
+             :diminish subword-mode)
 
 (use-package flyspell
-  :diminish (flyspell-mode . "φ")
-  :bind* (("M-m ] s" . flyspell-goto-next-error)))
+             :diminish (flyspell-mode . "φ")
+             :bind* (("M-m ] s" . flyspell-goto-next-error)))
 
 (use-package eww
-  :bind* (("M-m g x" . eww)
-          ("M-m g :" . eww-browse-with-external-browser)
-          ("M-m g #" . eww-list-histories)
-          ("M-m g {" . eww-back-url)
-          ("M-m g }" . eww-forward-url))
-  :config
-  (progn
-    (add-hook 'eww-mode-hook 'visual-line-mode)))
+             :bind* (("M-m g x" . eww)
+                     ("M-m g :" . eww-browse-with-external-browser)
+                     ("M-m g #" . eww-list-histories)
+                     ("M-m g {" . eww-back-url)
+                     ("M-m g }" . eww-forward-url))
+             :config
+             (progn
+               (add-hook 'eww-mode-hook 'visual-line-mode)))
 
 (use-package exec-path-from-shell
-  :ensure t
-  :demand t
-  :init
-  (setq exec-path-from-shell-check-startup-files nil)
-  :config
-  ;; (exec-path-from-shell-copy-env "PYTHONPATH")
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)))
+             :ensure t
+             :demand t
+             :init
+             (setq exec-path-from-shell-check-startup-files nil)
+             :config
+             ;; (exec-path-from-shell-copy-env "PYTHONPATH")
+             (when (memq window-system '(mac ns x))
+               (exec-path-from-shell-initialize)))
 
 (use-package async
-  :ensure t
-  :commands (async-start))
+             :ensure t
+             :commands (async-start))
 
 (use-package cl-lib
-  :ensure t)
+             :ensure t)
 
 (use-package dash
-  :ensure t)
+             :ensure t)
 
 (use-package s
-  :ensure t)
+             :ensure t)
 
 (use-package restart-emacs
-  :ensure t
-  :bind* (("C-x M-c" . restart-emacs)))
+             :ensure t
+             :bind* (("C-x M-c" . restart-emacs)))
 
 ;; Tangle on save
 (defun tangle-if-init ()
   "If the current buffer is 'init.org' the code-blocks are
-    tangled, and the tangled file is compiled."
+  tangled, and the tangled file is compiled."
 
   (when (string-suffix-p "config.org" (buffer-file-name))
     (tangle-init)))
@@ -180,9 +180,9 @@
     (require 'ob-tangle)
     (org-babel-tangle-file src dest)
     (if (byte-compile-file dest)
-        (byte-compile-dest-file dest)
+      (byte-compile-dest-file dest)
       (with-current-buffer byte-compile-log-buffer
-        (buffer-string)))))
+                           (buffer-string)))))
 
 (defun tangle-init ()
   "Tangle init.org asynchronously."
@@ -190,49 +190,49 @@
   (interactive)
   (message "Tangling init")
   (async-start
-   (symbol-function #'tangle-init-sync)
-   (lambda (result)
-     (message "Init tangling completed: %s" result))))
+    (symbol-function #'tangle-init-sync)
+    (lambda (result)
+      (message "Init tangling completed: %s" result))))
 
 (use-package which-key
-  :ensure t
-  :defer t
-  :diminish which-key-mode
-  :init
-  (setq which-key-sort-order 'which-key-key-order-alpha)
-  :bind* (("M-m ?" . which-key-show-top-level))
-  :config
-  (which-key-mode)
-  (which-key-add-key-based-replacements
-   "M-m ?" "top level bindings"))
+             :ensure t
+             :defer t
+             :diminish which-key-mode
+             :init
+             (setq which-key-sort-order 'which-key-key-order-alpha)
+             :bind* (("M-m ?" . which-key-show-top-level))
+             :config
+             (which-key-mode)
+             (which-key-add-key-based-replacements
+               "M-m ?" "top level bindings"))
 
 (use-package modalka
-  :ensure t
-  :demand t
-  :bind* (("C-z" . modalka-mode))
-  :diminish (modalka-mode . "μ")
-  :init
-  (setq modalka-cursor-type 'box)
-  :config
-  (global-set-key (kbd "<escape>") #'modalka-mode)
-  (modalka-global-mode 1)
-  (add-to-list 'modalka-excluded-modes 'magit-status-mode)
-  (add-to-list 'modalka-excluded-modes 'magit-popup-mode)
-  (add-to-list 'modalka-excluded-modes 'eshell-mode)
-  (add-to-list 'modalka-excluded-modes 'deft-mode)
-  (add-to-list 'modalka-excluded-modes 'term-mode)
-  (which-key-add-key-based-replacements
-    "M-m"     "Modalka prefix"
-    "M-m :"   "extended prefix"
-    "M-m m"   "move prefix"
-    "M-m s"   "send code prefix"
-    "M-m SPC" "user prefix"
-    "M-m g"   "global prefix"
-    "M-m o"   "org prefix"
-    "M-m a"   "expand around prefix"
-    "M-m i"   "expand inside prefix"
-    "M-m ["   "prev nav prefix"
-    "M-m ]"   "next nav prefix"))
+             :ensure t
+             :demand t
+             :bind* (("C-z" . modalka-mode))
+             :diminish (modalka-mode . "μ")
+             :init
+             (setq modalka-cursor-type 'box)
+             :config
+             (global-set-key (kbd "<escape>") #'modalka-mode)
+             (modalka-global-mode 1)
+             (add-to-list 'modalka-excluded-modes 'magit-status-mode)
+             (add-to-list 'modalka-excluded-modes 'magit-popup-mode)
+             (add-to-list 'modalka-excluded-modes 'eshell-mode)
+             (add-to-list 'modalka-excluded-modes 'deft-mode)
+             (add-to-list 'modalka-excluded-modes 'term-mode)
+             (which-key-add-key-based-replacements
+               "M-m"     "Modalka prefix"
+               "M-m :"   "extended prefix"
+               "M-m m"   "move prefix"
+               "M-m s"   "send code prefix"
+               "M-m SPC" "user prefix"
+               "M-m g"   "global prefix"
+               "M-m o"   "org prefix"
+               "M-m a"   "expand around prefix"
+               "M-m i"   "expand inside prefix"
+               "M-m ["   "prev nav prefix"
+               "M-m ]"   "next nav prefix"))
 
 (modalka-define-kbd "0" "C-0")
 (modalka-define-kbd "1" "C-1")
@@ -481,47 +481,47 @@
         (sequence "WAITING(w@/!)" "|" "CANCELED(c@)")))
 (setq org-log-done t)
 (use-package org
-  :ensure org
-  :bind* (("M-m o a"   . org-agenda)
-          ("M-m o c"   . org-capture)
-          ("M-m o i"   . org-insert-link)
-          ("M-m o s"   . org-store-link)
-          ("M-m o S"   . org-list-make-subtree)
-          ("M-m o A"   . org-archive-subtree)
-          ("M-m o g"   . org-goto)
-          ("M-m o l"   . org-toggle-latex-fragment)
-          ("M-m o L"   . org-toggle-link-display)
-          ("M-m o I"   . org-toggle-inline-images)
-          ("M-m o k"   . org-cut-subtree)
-          ("M-m o V"   . org-reveal)
-          ("M-m o R"   . org-refile)
-          ("M-m o y"   . org-copy-subtree)
-          ("M-m o h"   . org-toggle-heading)
-          ("M-m o H"   . org-insert-heading-respect-content)
-          ("M-m o e"   . org-export-dispatch)
-          ("M-m o u"   . org-update-dblock)
-          ("M-m o U"   . org-update-all-dblocks)
-          ("M-m o O"   . org-footnote)
-          ("M-m o ]"   . org-narrow-to-subtree)
-          ("M-m o ["   . widen)
-          ("M-m o N"   . org-add-note)
-          ("M-m o E"   . org-set-effort)
-          ("M-m o B"   . org-table-blank-field)
-          ("M-m o <"   . org-date-from-calendar)
-          ("M-m o >"   . org-goto-calendar)
-          ("M-m o d"   . org-todo)
-          ("M-m o t"   . org-set-tags-command)
-          ("M-m o w"   . org-edit-special)
-          ("M-m o q"   . org-edit-src-exit)
-          ("M-m o z"   . clone-indirect-buffer-other-window)
-          ("M-m a s"   . org-mark-subtree)
-          ("M-m o RET" . org-open-at-point))
-  :config
-  ;; More of those nice template expansion
-  )
+             :ensure org
+             :bind* (("M-m o a"   . org-agenda)
+                     ("M-m o c"   . org-capture)
+                     ("M-m o i"   . org-insert-link)
+                     ("M-m o s"   . org-store-link)
+                     ("M-m o S"   . org-list-make-subtree)
+                     ("M-m o A"   . org-archive-subtree)
+                     ("M-m o g"   . org-goto)
+                     ("M-m o l"   . org-toggle-latex-fragment)
+                     ("M-m o L"   . org-toggle-link-display)
+                     ("M-m o I"   . org-toggle-inline-images)
+                     ("M-m o k"   . org-cut-subtree)
+                     ("M-m o V"   . org-reveal)
+                     ("M-m o R"   . org-refile)
+                     ("M-m o y"   . org-copy-subtree)
+                     ("M-m o h"   . org-toggle-heading)
+                     ("M-m o H"   . org-insert-heading-respect-content)
+                     ("M-m o e"   . org-export-dispatch)
+                     ("M-m o u"   . org-update-dblock)
+                     ("M-m o U"   . org-update-all-dblocks)
+                     ("M-m o O"   . org-footnote)
+                     ("M-m o ]"   . org-narrow-to-subtree)
+                     ("M-m o ["   . widen)
+                     ("M-m o N"   . org-add-note)
+                     ("M-m o E"   . org-set-effort)
+                     ("M-m o B"   . org-table-blank-field)
+                     ("M-m o <"   . org-date-from-calendar)
+                     ("M-m o >"   . org-goto-calendar)
+                     ("M-m o d"   . org-todo)
+                     ("M-m o t"   . org-set-tags-command)
+                     ("M-m o w"   . org-edit-special)
+                     ("M-m o q"   . org-edit-src-exit)
+                     ("M-m o z"   . clone-indirect-buffer-other-window)
+                     ("M-m a s"   . org-mark-subtree)
+                     ("M-m o RET" . org-open-at-point))
+             :config
+             ;; More of those nice template expansion
+             )
 
 (which-key-add-key-based-replacements
- "M-m o" "org mode prefix")
+  "M-m o" "org mode prefix")
 (modalka-define-kbd "o a"   "M-m o a")
 (modalka-define-kbd "o c"   "M-m o c")
 (modalka-define-kbd "o i"   "M-m o i")
@@ -596,291 +596,291 @@
   "o RET" "org open link")
 
 (eval-after-load "org"
-     '(require 'ox-gfm nil t))            
+                 '(require 'ox-gfm nil t))
 
 (use-package helm
-  :ensure t
-  :demand t
-  :diminish helm-mode
-  :bind (("M-x"     . helm-M-x)
-         ("M-y"     . helm-show-kill-ring)
-         ("C-x C-f" . helm-find-files)
-         ("C-x 8"   . helm-ucs))
-  :bind* (("M-m SPC h r" . helm-resume)
-          ("M-m SPC r"   . helm-for-files)
-          ("M-m SPC x"   . helm-apropos)
-          ("M-m SPC C" . helm-colors)
-          ("M-m SPC h R" . helm-regexp)
-          ("M-m SPC h u" . helm-surfraw)
-          ("M-m SPC h t" . helm-top)
-          ("M-m SPC h p" . helm-list-emacs-process)
-          ("M-m SPC F"   . helm-find)
-          ("M-m SPC h k" . helm-calcul-expression)
-          ("M-m SPC h i" . helm-info-at-point)
-          ("M-m SPC h d" . helm-man-woman)
-          ("M-m SPC h h" . helm-documentation)
-          ("M-m SPC h e" . helm-run-external-command)
-          ("M-m ;"       . helm-all-mark-rings)
-          ("M-m SPC h x" . helm-select-xfont)
-          ("M-m t"       . helm-semantic-or-imenu))
-  :bind (:map helm-map
-              ("<return>"   . helm-maybe-exit-minibuffer)
-              ("RET"        . helm-maybe-exit-minibuffer)
-              ("<tab>"      . helm-select-action)
-              ("C-i"        . helm-select-action)
-              ("S-<return>" . helm-maybe-exit-minibuffer)
-              ("S-RET"      . helm-maybe-exit-minibuffer)
-              ("C-S-m"      . helm-maybe-exit-minibuffer))
-  :bind (:map helm-find-files-map
-              ("<return>"    . helm-execute-persistent-action)
-              ("RET"         . helm-execute-persistent-action)
-              ("<backspace>" . dwim-helm-find-files-up-one-level-maybe)
-              ("DEL"         . dwim-helm-find-files-up-one-level-maybe)
-              ("<tab>"       . helm-select-action)
-              ("C-i"         . helm-select-action)
-              ("S-<return>"  . helm-maybe-exit-minibuffer)
-              ("S-RET"       . helm-maybe-exit-minibuffer)
-              ("C-S-m"       . helm-maybe-exit-minibuffer))
-  :bind (:map helm-read-file-map
-              ("<return>"    . helm-execute-persistent-action)
-              ("RET"         . helm-execute-persistent-action)
-              ("<backspace>" . dwim-helm-find-files-up-one-level-maybe)
-              ("DEL"         . dwim-helm-find-files-up-one-level-maybe)
-              ("<tab>"       . helm-select-action)
-              ("C-i"         . helm-select-action)
-              ("S-<return>"  . helm-maybe-exit-minibuffer)
-              ("S-RET"       . helm-maybe-exit-minibuffer)
-              ("C-S-m"       . helm-maybe-exit-minibuffer))
-  :commands (helm-mode
-             helm-M-x
-             helm-smex
-             helm-find-files
-             helm-buffers
-             helm-recentf)
-  :config
-  ;; require basic config
-  (require 'helm-config)
-  (helm-mode 1)
-  
-  ;; use silver searcher when available
-  (when (executable-find "ag-grep")
-    (setq helm-grep-default-command "ag-grep -Hn --no-group --no-color %e %p %f"
-          helm-grep-default-recurse-command "ag-grep -H --no-group --no-color %e %p %f"))
+             :ensure t
+             :demand t
+             :diminish helm-mode
+             :bind (("M-x"     . helm-M-x)
+                    ("M-y"     . helm-show-kill-ring)
+                    ("C-x C-f" . helm-find-files)
+                    ("C-x 8"   . helm-ucs))
+             :bind* (("M-m SPC h r" . helm-resume)
+                     ("M-m SPC r"   . helm-for-files)
+                     ("M-m SPC x"   . helm-apropos)
+                     ("M-m SPC C" . helm-colors)
+                     ("M-m SPC h R" . helm-regexp)
+                     ("M-m SPC h u" . helm-surfraw)
+                     ("M-m SPC h t" . helm-top)
+                     ("M-m SPC h p" . helm-list-emacs-process)
+                     ("M-m SPC F"   . helm-find)
+                     ("M-m SPC h k" . helm-calcul-expression)
+                     ("M-m SPC h i" . helm-info-at-point)
+                     ("M-m SPC h d" . helm-man-woman)
+                     ("M-m SPC h h" . helm-documentation)
+                     ("M-m SPC h e" . helm-run-external-command)
+                     ("M-m ;"       . helm-all-mark-rings)
+                     ("M-m SPC h x" . helm-select-xfont)
+                     ("M-m t"       . helm-semantic-or-imenu))
+             :bind (:map helm-map
+                         ("<return>"   . helm-maybe-exit-minibuffer)
+                         ("RET"        . helm-maybe-exit-minibuffer)
+                         ("<tab>"      . helm-select-action)
+                         ("C-i"        . helm-select-action)
+                         ("S-<return>" . helm-maybe-exit-minibuffer)
+                         ("S-RET"      . helm-maybe-exit-minibuffer)
+                         ("C-S-m"      . helm-maybe-exit-minibuffer))
+             :bind (:map helm-find-files-map
+                         ("<return>"    . helm-execute-persistent-action)
+                         ("RET"         . helm-execute-persistent-action)
+                         ("<backspace>" . dwim-helm-find-files-up-one-level-maybe)
+                         ("DEL"         . dwim-helm-find-files-up-one-level-maybe)
+                         ("<tab>"       . helm-select-action)
+                         ("C-i"         . helm-select-action)
+                         ("S-<return>"  . helm-maybe-exit-minibuffer)
+                         ("S-RET"       . helm-maybe-exit-minibuffer)
+                         ("C-S-m"       . helm-maybe-exit-minibuffer))
+             :bind (:map helm-read-file-map
+                         ("<return>"    . helm-execute-persistent-action)
+                         ("RET"         . helm-execute-persistent-action)
+                         ("<backspace>" . dwim-helm-find-files-up-one-level-maybe)
+                         ("DEL"         . dwim-helm-find-files-up-one-level-maybe)
+                         ("<tab>"       . helm-select-action)
+                         ("C-i"         . helm-select-action)
+                         ("S-<return>"  . helm-maybe-exit-minibuffer)
+                         ("S-RET"       . helm-maybe-exit-minibuffer)
+                         ("C-S-m"       . helm-maybe-exit-minibuffer))
+             :commands (helm-mode
+                         helm-M-x
+                         helm-smex
+                         helm-find-files
+                         helm-buffers
+                         helm-recentf)
+             :config
+             ;; require basic config
+             (require 'helm-config)
+             (helm-mode 1)
 
-  ;; Fuzzy matching for everything
-  (setq helm-M-x-fuzzy-match t
-        helm-recentf-fuzzy-match t
-        helm-buffers-fuzzy-matching t
-        helm-locate-fuzzy-match nil
-        helm-mode-fuzzy-match t)
+             ;; use silver searcher when available
+             (when (executable-find "ag-grep")
+               (setq helm-grep-default-command "ag-grep -Hn --no-group --no-color %e %p %f"
+                     helm-grep-default-recurse-command "ag-grep -H --no-group --no-color %e %p %f"))
 
-  ;; set height and stuff
-  (helm-autoresize-mode 1)
-  (setq helm-autoresize-max-height 20
-        helm-autoresize-min-height 20)
+             ;; Fuzzy matching for everything
+             (setq helm-M-x-fuzzy-match t
+                   helm-recentf-fuzzy-match t
+                   helm-buffers-fuzzy-matching t
+                   helm-locate-fuzzy-match nil
+                   helm-mode-fuzzy-match t)
 
-  ;; Work with Spotlight on OS X instead of the regular locate
-  (setq helm-locate-command "mdfind -name -onlyin ~ %s %s")
+             ;; set height and stuff
+             (helm-autoresize-mode 1)
+             (setq helm-autoresize-max-height 20
+                   helm-autoresize-min-height 20)
 
-  ;; Make sure helm always pops up in bottom
-  (setq helm-split-window-in-side-p t)
+             ;; Work with Spotlight on OS X instead of the regular locate
+             (setq helm-locate-command "mdfind -name -onlyin ~ %s %s")
 
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*helm.*\\*\\'"
-                 (display-buffer-in-side-window)
-                 (inhibit-same-window . t)
-                 (window-height . 0.2)))
+             ;; Make sure helm always pops up in bottom
+             (setq helm-split-window-in-side-p t)
 
-  ;; provide input in the header line and hide the mode lines above
-  (setq helm-echo-input-in-header-line t)
+             (add-to-list 'display-buffer-alist
+                          '("\\`\\*helm.*\\*\\'"
+                            (display-buffer-in-side-window)
+                            (inhibit-same-window . t)
+                            (window-height . 0.2)))
 
-  (defvar bottom-buffers nil
-    "List of bottom buffers before helm session.
-      Its element is a pair of `buffer-name' and `mode-line-format'.")
+             ;; provide input in the header line and hide the mode lines above
+             (setq helm-echo-input-in-header-line t)
 
-  (defun bottom-buffers-init ()
-    (setq-local mode-line-format (default-value 'mode-line-format))
-    (setq bottom-buffers
-          (cl-loop for w in (window-list)
-                   when (window-at-side-p w 'bottom)
-                   collect (with-current-buffer (window-buffer w)
-                             (cons (buffer-name) mode-line-format)))))
+             (defvar bottom-buffers nil
+               "List of bottom buffers before helm session.
+               Its element is a pair of `buffer-name' and `mode-line-format'.")
 
-  (defun bottom-buffers-hide-mode-line ()
-    (setq-default cursor-in-non-selected-windows nil)
-    (mapc (lambda (elt)
-            (with-current-buffer (car elt)
-              (setq-local mode-line-format nil)))
-          bottom-buffers))
+             (defun bottom-buffers-init ()
+               (setq-local mode-line-format (default-value 'mode-line-format))
+               (setq bottom-buffers
+                     (cl-loop for w in (window-list)
+                              when (window-at-side-p w 'bottom)
+                              collect (with-current-buffer (window-buffer w)
+                                                           (cons (buffer-name) mode-line-format)))))
 
-  (defun bottom-buffers-show-mode-line ()
-    (setq-default cursor-in-non-selected-windows t)
-    (when bottom-buffers
-      (mapc (lambda (elt)
-              (with-current-buffer (car elt)
-                (setq-local mode-line-format (cdr elt))))
-            bottom-buffers)
-      (setq bottom-buffers nil)))
+             (defun bottom-buffers-hide-mode-line ()
+               (setq-default cursor-in-non-selected-windows nil)
+               (mapc (lambda (elt)
+                       (with-current-buffer (car elt)
+                                            (setq-local mode-line-format nil)))
+                     bottom-buffers))
 
-  (defun helm-keyboard-quit-advice (orig-func &rest args)
-    (bottom-buffers-show-mode-line)
-    (apply orig-func args))
+             (defun bottom-buffers-show-mode-line ()
+               (setq-default cursor-in-non-selected-windows t)
+               (when bottom-buffers
+                 (mapc (lambda (elt)
+                         (with-current-buffer (car elt)
+                                              (setq-local mode-line-format (cdr elt))))
+                       bottom-buffers)
+                 (setq bottom-buffers nil)))
 
-  (add-hook 'helm-before-initialize-hook #'bottom-buffers-init)
-  (add-hook 'helm-after-initialize-hook #'bottom-buffers-hide-mode-line)
-  (add-hook 'helm-exit-minibuffer-hook #'bottom-buffers-show-mode-line)
-  (add-hook 'helm-cleanup-hook #'bottom-buffers-show-mode-line)
-  (advice-add 'helm-keyboard-quit :around #'helm-keyboard-quit-advice)
+             (defun helm-keyboard-quit-advice (orig-func &rest args)
+               (bottom-buffers-show-mode-line)
+               (apply orig-func args))
 
-  ;; remove header lines if only a single source
-  (setq helm-display-header-line nil)
+             (add-hook 'helm-before-initialize-hook #'bottom-buffers-init)
+             (add-hook 'helm-after-initialize-hook #'bottom-buffers-hide-mode-line)
+             (add-hook 'helm-exit-minibuffer-hook #'bottom-buffers-show-mode-line)
+             (add-hook 'helm-cleanup-hook #'bottom-buffers-show-mode-line)
+             (advice-add 'helm-keyboard-quit :around #'helm-keyboard-quit-advice)
 
-  (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
-  (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
-  (defvar helm-source-header-default-box (face-attribute 'helm-source-header :box))
+             ;; remove header lines if only a single source
+             (setq helm-display-header-line nil)
 
-  (defun helm-toggle-header-line ()
-    (if (> (length helm-sources) 1)
-        (set-face-attribute 'helm-source-header
-                            nil
-                            :foreground helm-source-header-default-foreground
-                            :background helm-source-header-default-background
-                            :box helm-source-header-default-box
-                            :height 1.0)
-      (set-face-attribute 'helm-source-header
-                          nil
-                          :foreground (face-attribute 'helm-selection :background)
-                          :background (face-attribute 'helm-selection :background)
-                          :box nil
-                          :height 0.1)))
+             (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
+             (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
+             (defvar helm-source-header-default-box (face-attribute 'helm-source-header :box))
 
-  (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
+             (defun helm-toggle-header-line ()
+               (if (> (length helm-sources) 1)
+                 (set-face-attribute 'helm-source-header
+                                     nil
+                                     :foreground helm-source-header-default-foreground
+                                     :background helm-source-header-default-background
+                                     :box helm-source-header-default-box
+                                     :height 1.0)
+                 (set-face-attribute 'helm-source-header
+                                     nil
+                                     :foreground (face-attribute 'helm-selection :background)
+                                     :background (face-attribute 'helm-selection :background)
+                                     :box nil
+                                     :height 0.1)))
 
-  ;; hide the minibuffer when helm is active
-  (defun helm-hide-minibuffer-maybe ()
-    (when (with-helm-buffer helm-echo-input-in-header-line)
-      (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
-        (overlay-put ov 'window (selected-window))
-        (overlay-put ov 'face (let ((bg-color (face-background 'default nil)))
-                                `(:background ,bg-color :foreground ,bg-color)))
-        (setq-local cursor-type nil))))
+             (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
 
-  (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
+             ;; hide the minibuffer when helm is active
+             (defun helm-hide-minibuffer-maybe ()
+               (when (with-helm-buffer helm-echo-input-in-header-line)
+                 (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+                   (overlay-put ov 'window (selected-window))
+                   (overlay-put ov 'face (let ((bg-color (face-background 'default nil)))
+                                           `(:background ,bg-color :foreground ,bg-color)))
+                   (setq-local cursor-type nil))))
 
-  ;; Proper find file behavior
-  (defun dwim-helm-find-files-up-one-level-maybe ()
-    (interactive)
-    (if (looking-back "/" 1)
-        (call-interactively 'helm-find-files-up-one-level)
-      (delete-backward-char 1)))
+             (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
 
-  (defun dwim-helm-find-files-navigate-forward (orig-fun &rest args)
-    "Adjust how helm-execute-persistent actions behaves, depending on context"
-    (if (file-directory-p (helm-get-selection))
-        (apply orig-fun args)
-      (helm-maybe-exit-minibuffer)))
+             ;; Proper find file behavior
+             (defun dwim-helm-find-files-up-one-level-maybe ()
+               (interactive)
+               (if (looking-back "/" 1)
+                 (call-interactively 'helm-find-files-up-one-level)
+                 (delete-backward-char 1)))
 
-  (advice-add 'helm-execute-persistent-action :around #'dwim-helm-find-files-navigate-forward)
+             (defun dwim-helm-find-files-navigate-forward (orig-fun &rest args)
+               "Adjust how helm-execute-persistent actions behaves, depending on context"
+               (if (file-directory-p (helm-get-selection))
+                 (apply orig-fun args)
+                 (helm-maybe-exit-minibuffer)))
 
-  ;; better smex integration
-  (use-package helm-smex
-    :ensure t
-    :bind* (("M-x" . helm-smex)
-            ("M-X" . helm-smex-major-mode-commands)))
+             (advice-add 'helm-execute-persistent-action :around #'dwim-helm-find-files-navigate-forward)
 
-  ;; Make helm fuzzier
-  (use-package helm-fuzzier
-    :ensure t
-    :config
-    (helm-fuzzier-mode 1))
+             ;; better smex integration
+             (use-package helm-smex
+                          :ensure t
+                          :bind* (("M-x" . helm-smex)
+                                  ("M-X" . helm-smex-major-mode-commands)))
 
-  ;; Add support for flx
-  (use-package helm-flx
-    :ensure t
-    :config
-    (helm-flx-mode 1))
+             ;; Make helm fuzzier
+             (use-package helm-fuzzier
+                          :ensure t
+                          :config
+                          (helm-fuzzier-mode 1))
 
-  ;; Add helm-bibtex
-  (use-package helm-bibtex
-    :ensure t
-    :bind* (("M-m SPC b" . helm-bibtex))
-    :init
-    (setq bibtex-completion-bibliography '("~/Dropbox/org/references/multiphysics.bib" "~/Dropbox/org/references/chanceconstraints.bib" "~/Dropbox/org/references/tensors.bib"))
-    (setq bibtex-completion-library-path "~/Dropbox/org/references/pdfs")
-    (setq bibtex-completion-notes-path "~/Dropbox/org/references/articles.org"))
+             ;; Add support for flx
+             (use-package helm-flx
+                          :ensure t
+                          :config
+                          (helm-flx-mode 1))
 
-  ;; to search in projects - the silver searcher
-  (use-package helm-ag
-    :ensure t
-    :bind* (("M-m g s" . helm-do-ag-project-root)
-            ("M-m g e" . helm-do-ag)))
+             ;; Add helm-bibtex
+             (use-package helm-bibtex
+                          :ensure t
+                          :bind* (("M-m SPC b" . helm-bibtex))
+                          :init
+                          (setq bibtex-completion-bibliography '("~/Dropbox/org/references/multiphysics.bib" "~/Dropbox/org/references/chanceconstraints.bib" "~/Dropbox/org/references/tensors.bib"))
+                          (setq bibtex-completion-library-path "~/Dropbox/org/references/pdfs")
+                          (setq bibtex-completion-notes-path "~/Dropbox/org/references/articles.org"))
 
-  ;; to search in files
-  (use-package helm-swoop
-    :ensure t
-    :bind (("C-s" . helm-swoop-without-pre-input))
-    :bind* (("M-m #"   . helm-swoop)
-            ("M-m g /" . helm-multi-swoop)
-            ("M-m o /" . helm-multi-swoop-org)
-            ("M-m g E" . helm-multi-swoop-all))
-    :init
-    (setq helm-swoop-split-with-multiple-windows nil
-          helm-swoop-split-direction 'split-window-vertically
-          helm-swoop-split-window-function 'helm-default-display-buffer))
+             ;; to search in projects - the silver searcher
+             (use-package helm-ag
+                          :ensure t
+                          :bind* (("M-m g s" . helm-do-ag-project-root)
+                                  ("M-m g e" . helm-do-ag)))
 
-  ;; to help with projectile
-  (use-package helm-projectile
-    :ensure t
-    :bind* (("M-m SPC d" . helm-projectile))
-    :init
-    (setq projectile-completion-system 'helm))
+             ;; to search in files
+             (use-package helm-swoop
+                          :ensure t
+                          :bind (("C-s" . helm-swoop-without-pre-input))
+                          :bind* (("M-m #"   . helm-swoop)
+                                  ("M-m g /" . helm-multi-swoop)
+                                  ("M-m o /" . helm-multi-swoop-org)
+                                  ("M-m g E" . helm-multi-swoop-all))
+                          :init
+                          (setq helm-swoop-split-with-multiple-windows nil
+                                helm-swoop-split-direction 'split-window-vertically
+                                helm-swoop-split-window-function 'helm-default-display-buffer))
 
-  ;; to describe bindings
-  (use-package helm-descbinds
-    :ensure t
-    :bind* (("M-m SPC ?" . helm-descbinds)))
+             ;; to help with projectile
+             (use-package helm-projectile
+                          :ensure t
+                          :bind* (("M-m SPC d" . helm-projectile))
+                          :init
+                          (setq projectile-completion-system 'helm))
 
-  ;; Control AWS via helm
-  (use-package helm-aws
-    :ensure t
-    :bind* (("M-m SPC h w" . helm-aws)))
+             ;; to describe bindings
+             (use-package helm-descbinds
+                          :ensure t
+                          :bind* (("M-m SPC ?" . helm-descbinds)))
 
-  ;; Control circe with helm
-  (use-package helm-circe
-    :ensure t
-    :bind* (("M-m SPC h j" . helm-circe)
-            ("M-m SPC h J" . helm-circe-new-activity)))
+             ;; Control AWS via helm
+             (use-package helm-aws
+                          :ensure t
+                          :bind* (("M-m SPC h w" . helm-aws)))
 
-  ;; List errors with helm
-  (use-package helm-flycheck
-    :ensure t
-    :bind* (("M-m SPC l" . helm-flycheck)))
+             ;; Control circe with helm
+             (use-package helm-circe
+                          :ensure t
+                          :bind* (("M-m SPC h j" . helm-circe)
+                                  ("M-m SPC h J" . helm-circe-new-activity)))
 
-  ;; Flyspell errors with helm
-  (use-package helm-flyspell
-    :ensure t
-    :bind* (("M-m SPC h s" . sk/helm-correct-word))
-    :config
-    (defun sk/helm-correct-word ()
-      (interactive)
-      (save-excursion
-        (sk/flyspell-goto-previous-error 1)
-        (helm-flyspell-correct))))
+             ;; List errors with helm
+             (use-package helm-flycheck
+                          :ensure t
+                          :bind* (("M-m SPC l" . helm-flycheck)))
 
-  ;; Select snippets with helm
-  (use-package helm-c-yasnippet
-    :ensure t
-    :bind (("C-o" . helm-yas-complete))
-    :bind* (("C-,"        . helm-yas-create-snippet-on-region)
-            ("C-<escape>" . helm-yas-visit-snippet-file)))
+             ;; Flyspell errors with helm
+             (use-package helm-flyspell
+                          :ensure t
+                          :bind* (("M-m SPC h s" . sk/helm-correct-word))
+                          :config
+                          (defun sk/helm-correct-word ()
+                            (interactive)
+                            (save-excursion
+                              (sk/flyspell-goto-previous-error 1)
+                              (helm-flyspell-correct))))
 
-  ;; Helm integration with make
-  (use-package helm-make
-    :ensure t
-    :init
-    (setq helm-make-build-directory "build")
-    :bind* (("M-m SPC m" . helm-make-projectile)
-            ("M-m SPC M" . helm-make))))
+             ;; Select snippets with helm
+             (use-package helm-c-yasnippet
+                          :ensure t
+                          :bind (("C-o" . helm-yas-complete))
+                          :bind* (("C-,"        . helm-yas-create-snippet-on-region)
+                                  ("C-<escape>" . helm-yas-visit-snippet-file)))
+
+             ;; Helm integration with make
+             (use-package helm-make
+                          :ensure t
+                          :init
+                          (setq helm-make-build-directory "build")
+                          :bind* (("M-m SPC m" . helm-make-projectile)
+                                  ("M-m SPC M" . helm-make))))
 
 (modalka-define-kbd "t" "M-m t")
 (modalka-define-kbd "#" "M-m #")
@@ -952,9 +952,9 @@
 
 
 (use-package magit
-  :ensure t
-  :bind* (("M-m SPC e" . magit-status)
-          ("M-m g b"   . magit-blame)))
+             :ensure t
+             :bind* (("M-m SPC e" . magit-status)
+                     ("M-m g b"   . magit-blame)))
 
 (modalka-define-kbd "SPC e" "M-m SPC e")
 (modalka-define-kbd "g b"   "M-m g b")
@@ -965,25 +965,25 @@
 
 
 (use-package diff-hl
-  :ensure t
-  :commands (global-diff-hl-mode
-             diff-hl-mode
-             diff-hl-next-hunk
-             diff-hl-previous-hunk
-             diff-hl-mark-hunk
-             diff-hl-diff-goto-hunk
-             diff-hl-revert-hunk)
-  :bind* (("M-m ] h" . diff-hl-next-hunk)
-          ("M-m [ h" . diff-hl-previous-hunk)
-          ("M-m i h" . diff-hl-mark-hunk)
-          ("M-m a h" . diff-hl-mark-hunk)
-          ("M-m g h" . diff-hl-diff-goto-hunk)
-          ("M-m g H" . diff-hl-revert-hunk))
-  :config
-  (global-diff-hl-mode)
-  (diff-hl-flydiff-mode)
-  (diff-hl-margin-mode)
-  (diff-hl-dired-mode))
+             :ensure t
+             :commands (global-diff-hl-mode
+                         diff-hl-mode
+                         diff-hl-next-hunk
+                         diff-hl-previous-hunk
+                         diff-hl-mark-hunk
+                         diff-hl-diff-goto-hunk
+                         diff-hl-revert-hunk)
+             :bind* (("M-m ] h" . diff-hl-next-hunk)
+                     ("M-m [ h" . diff-hl-previous-hunk)
+                     ("M-m i h" . diff-hl-mark-hunk)
+                     ("M-m a h" . diff-hl-mark-hunk)
+                     ("M-m g h" . diff-hl-diff-goto-hunk)
+                     ("M-m g H" . diff-hl-revert-hunk))
+             :config
+             (global-diff-hl-mode)
+             (diff-hl-flydiff-mode)
+             (diff-hl-margin-mode)
+             (diff-hl-dired-mode))
 
 (modalka-define-kbd "] h" "M-m ] h")
 (modalka-define-kbd "[ h" "M-m [ h")
@@ -1001,11 +1001,11 @@
   "a h" "select a git hunk")
 
 (use-package git-timemachine
-  :ensure t
-  :commands (git-timemachine-toggle
-             git-timemachine-switch-branch)
-  :bind* (("M-m g l" . git-timemachine-toggle)
-          ("M-m g L" . git-timemachine-switch-branch)))
+             :ensure t
+             :commands (git-timemachine-toggle
+                         git-timemachine-switch-branch)
+             :bind* (("M-m g l" . git-timemachine-toggle)
+                     ("M-m g L" . git-timemachine-switch-branch)))
 
 (modalka-define-kbd "g l" "M-m g l")
 (modalka-define-kbd "g L" "M-m g L")
@@ -1015,9 +1015,9 @@
   "g L" "time machine switch branch")
 
 (use-package browse-at-remote
-  :ensure t
-  :bind* (("M-m g i" . browse-at-remote)
-          ("M-m g I" . browse-at-remote-kill)))
+             :ensure t
+             :bind* (("M-m g i" . browse-at-remote)
+                     ("M-m g I" . browse-at-remote-kill)))
 
 (modalka-define-kbd "g i" "M-m g i")
 (modalka-define-kbd "g I" "M-m g I")
@@ -1027,82 +1027,82 @@
   "g I" "copy remote URL")
 
 (use-package color-theme-sanityinc-tomorrow
-  :ensure t
-  :config
-  (progn
-    (load-theme 'sanityinc-tomorrow-night t)))
+             :ensure t
+             :config
+             (progn
+               (load-theme 'sanityinc-tomorrow-night t)))
 
 (use-package company
-  :ensure t
-  :commands (company-mode
-             company-complete
-             company-complete-common
-             company-complete-common-or-cycle
-             company-files
-             company-dabbrev
-             company-ispell
-             company-c-headers
-             company-jedi
-             company-tern
-             company-web-html
-             company-auctex)
-  :init
-  (setq company-minimum-prefix-length 2
-        company-require-match 0
-        company-selection-wrap-around t
-        company-dabbrev-downcase nil
-        company-tooltip-limit 20                      ; bigger popup window
-        company-tooltip-align-annotations 't          ; align annotations to the right tooltip border
-        company-idle-delay .4                         ; decrease delay before autocompletion popup shows
-        company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
-  (eval-after-load 'company
-    '(add-to-list 'company-backends '(company-files
-                                      company-capf)))
-  :bind (("M-t"   . company-complete)
-         ("C-c f" . company-files)
-         ("C-c a" . company-dabbrev)
-         ("C-c d" . company-ispell)
-         :map company-active-map
-              ("C-n"    . company-select-next)
-              ("C-p"    . company-select-previous)
-              ([return] . company-complete-selection)
-              ("C-w"    . backward-kill-word)
-              ("C-c"    . company-abort)
-              ("C-c"    . company-search-abort))
-  :diminish (company-mode . "ς")
-  :config
-  (global-company-mode)
-  ;; C++ header completion
-  (use-package company-c-headers
-    :ensure t
-    :bind (("C-c c" . company-c-headers))
-    :config
-    (add-to-list 'company-backends 'company-c-headers))
-  ;; Python auto completion
-  (use-package company-jedi
-    :ensure t
-    :bind (("C-c j" . company-jedi))
-    :config
-    (add-to-list 'company-backends 'company-jedi))
-  ;; Tern for JS
-  (use-package company-tern
-    :ensure t
-    :bind (("C-c t" . company-tern))
-    :init
-    (setq company-tern-property-marker "")
-    (setq company-tern-meta-as-single-line t)
-    :config
-    (add-to-list 'company-backends 'company-tern))
-  ;; HTML completion
-  (use-package company-web
-    :ensure t
-    :bind (("C-c w" . company-web-html))
-    :config
-    (add-to-list 'company-backends 'company-web-html))
-  ;; LaTeX autocompletion
-  (use-package company-auctex
-    :ensure t
-    :bind (("C-c l" . company-auctex))
-    :config
-    (add-to-list 'company-backends 'company-auctex)))
+             :ensure t
+             :commands (company-mode
+                         company-complete
+                         company-complete-common
+                         company-complete-common-or-cycle
+                         company-files
+                         company-dabbrev
+                         company-ispell
+                         company-c-headers
+                         company-jedi
+                         company-tern
+                         company-web-html
+                         company-auctex)
+             :init
+             (setq company-minimum-prefix-length 2
+                   company-require-match 0
+                   company-selection-wrap-around t
+                   company-dabbrev-downcase nil
+                   company-tooltip-limit 20                      ; bigger popup window
+                   company-tooltip-align-annotations 't          ; align annotations to the right tooltip border
+                   company-idle-delay .4                         ; decrease delay before autocompletion popup shows
+                   company-begin-commands '(self-insert-command)) ; start autocompletion only after typing
+             (eval-after-load 'company
+                              '(add-to-list 'company-backends '(company-files
+                                                                 company-capf)))
+             :bind (("M-t"   . company-complete)
+                    ("C-c f" . company-files)
+                    ("C-c a" . company-dabbrev)
+                    ("C-c d" . company-ispell)
+                    :map company-active-map
+                    ("C-n"    . company-select-next)
+                    ("C-p"    . company-select-previous)
+                    ([return] . company-complete-selection)
+                    ("C-w"    . backward-kill-word)
+                    ("C-c"    . company-abort)
+                    ("C-c"    . company-search-abort))
+             :diminish (company-mode . "ς")
+             :config
+             (global-company-mode)
+             ;; C++ header completion
+             (use-package company-c-headers
+                          :ensure t
+                          :bind (("C-c c" . company-c-headers))
+                          :config
+                          (add-to-list 'company-backends 'company-c-headers))
+             ;; Python auto completion
+             (use-package company-jedi
+                          :ensure t
+                          :bind (("C-c j" . company-jedi))
+                          :config
+                          (add-to-list 'company-backends 'company-jedi))
+             ;; Tern for JS
+             (use-package company-tern
+                          :ensure t
+                          :bind (("C-c t" . company-tern))
+                          :init
+                          (setq company-tern-property-marker "")
+                          (setq company-tern-meta-as-single-line t)
+                          :config
+                          (add-to-list 'company-backends 'company-tern))
+             ;; HTML completion
+             (use-package company-web
+                          :ensure t
+                          :bind (("C-c w" . company-web-html))
+                          :config
+                          (add-to-list 'company-backends 'company-web-html))
+             ;; LaTeX autocompletion
+             (use-package company-auctex
+                          :ensure t
+                          :bind (("C-c l" . company-auctex))
+                          :config
+                          (add-to-list 'company-backends 'company-auctex)))
 
