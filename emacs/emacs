@@ -59,6 +59,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq save-abbrevs 'silently)
 (setq-default abbrev-mode t)
+(global-visual-line-mode t)
 
 (setq ediff-window-setup-function 'ediff-setup-windows-plain
       ediff-split-window-function 'split-window-horizontally)
@@ -480,6 +481,8 @@
       '((sequence "TODO(t)" "IN-PROGRESS(i)" "|" "DONE(d!)")
         (sequence "WAITING(w@/!)" "|" "CANCELED(c@)")))
 (setq org-log-done t)
+(setq org-clock-idle-time 1)
+(setq org-clock-x11idle-program-name "xprintidle")
 (use-package org
              :ensure org
              :bind* (("M-m o a"   . org-agenda)
