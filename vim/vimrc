@@ -2,8 +2,13 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+if has("win32")
+    set rtp+=$HOME/vimfiles/bundle/Vundle.vim
+    call vundle#begin('$HOME/vimfiles/bundle/')
+else
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+endif
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
@@ -27,18 +32,20 @@ Plugin 'VundleVim/Vundle.vim'
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 
-Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'scrooloose/nerdtree'
 
-" Auto complete
 " Plugin 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'rdnetto/YCM-Generator'
-Plugin 'jeaye/color_coded'
+if has("win32") == 0
+    Plugin 'Valloric/YouCompleteMe'
+    Plugin 'christoomey/vim-tmux-navigator'
+    Plugin 'jeaye/color_coded'
+    Plugin 'rdnetto/YCM-Generator'
+endif
 
 " Plugin 'taglist.vim'
-Plugin 'majutsushi/tagbar'
 Bundle 'craigemery/vim-autotag'
+Plugin 'majutsushi/tagbar'
 
 " Track the engine.
 Plugin 'SirVer/ultisnips'
@@ -49,26 +56,25 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
 Plugin 'cyanjc321/Smart-Tabs'
+Plugin 'easymotion/vim-easymotion'
 Plugin 'godlygeek/tabular'
+Plugin 'rhysd/vim-clang-format'
+Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-fugitive'
-Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-dispatch'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'rhysd/vim-clang-format'
 
 " Language support
-Plugin 'vhda/verilog_systemverilog.vim'
+Plugin 'OrangeT/vim-csharp'
 Plugin 'gabrielelana/vim-markdown'
 Plugin 'jceb/vim-orgmode'
-Plugin 'OrangeT/vim-csharp'
+Plugin 'vhda/verilog_systemverilog.vim'
 
 " Color schemes
 Plugin 'CSApprox'
 Plugin 'euclio/vim-nocturne'
-Plugin 'nightsense/office'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'nightsense/office'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -86,8 +92,15 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 "##############################################################################################
-" smart tab settings
-:set et ci pi sts=0 sw=4 ts=4
+" Indentation setting
+set expandtab
+set copyindent
+set preserveindent
+set softtabstop=0
+set shiftwidth=4
+set tabstop=4
+set cindent                 " smart indenting for c-like code
+set cino=b1,g0,N-s,t0,(0,W4 " see :h cinoptions-value
 
 "##############################################################################################
 " syntastic settings
@@ -103,23 +116,25 @@ filetype plugin indent on    " required
 "##############################################################################################
 " ultisnips settings
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger = "<c-tab>"
+let g:UltiSnipsJumpForwardTrigger = "<c-b>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit = "vertical"
 
 "##############################################################################################
 " YouCompleteMe settings
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-let g:ycm_global_ycm_extra_conf="~/.vim/.ycm_extra_conf.py"
+let g:ycm_key_list_select_completion = []
+let g:ycm_key_list_previous_completion = []
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 "##############################################################################################
 " vim airline
-" always on airline bar
-set laststatus=2
+set laststatus=2  " always on airline bar
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'molokai'
 
 "##############################################################################################
 " verilog_systemverilog
@@ -127,14 +142,35 @@ let g:verilog_disable_indent_lst = "module,interface,preproc,eos"
 
 "##############################################################################################
 " miscellaneous
-colorscheme wombat256mod
+colorscheme apprentice
 
 syntax enable
 set exrc
 set secure
 set hlsearch
-set nu
-set guifont=monaco:h10
+set number
+set ignorecase      " case insensitive searching
+set smartcase       " but become case sensitive when uppercase characters are typed
+set noshowmode      " dont show (-- INSERT --) at the bottom
+set backspace=indent,eol,start
+set cmdheight=2     " number of line to use for command-line
+set tags=./tags;/   " look for tags in current dir and every dir above until root
+
+if has("macunix")
+    set guifont=hack:h11
+elseif has("win32")
+    set guifont=Consolas:h10
+else
+    set guifont=hack\ 10
+endif
+
+set guioptions-=T   " remove toolbar
+set guioptions-=l   " remove left-hand scrollbar
+set guioptions-=L   " remove left-hand scrollbar
+set guioptions-=r   " remove right-hand scrollbar
+set guioptions-=R   " remove right-hand scrollbar
+set guioptions-=m   " remove menu bar
+set guioptions-=M   " stop source $VIMRUNTIME/menu.vim
 
 " key remap
 " split navigation
