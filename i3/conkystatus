@@ -17,7 +17,7 @@ short_units yes
 # How strict should if_up be when testing an interface for being up?
 # The value is one of up, link or address, to check for the interface
 # being solely up, being up and having link or being up, having link
-# and an assigned IP address. 
+# and an assigned IP address.
 if_up_strictness address
 
 # Add spaces to keep things from moving about?  This only affects certain objects.
@@ -36,22 +36,23 @@ TEXT
 
 # JSON for i3bar
 [
-    # Free storage space in /
-    { "full_text" : "FS[/]: ${fs_free_perc /}% Free" , "color" : "\#ffffff" },
-    
-    # RAM
-    { "full_text" : "RAM: ${mem}" , "color" : \
-    ${if_match ${memperc}<90}"\#ffffff"${else}"\#ff0000"${endif} }, 
-
     # CPU
-    { "full_text" : "CPU: ${cpu}% ${freq_g 1}GHz", "color" : \
+    { "full_text" : "CPU: ${cpu}% (${freq_g 1}GHz)", "color" : \
     ${if_match ${cpu}<90}"\#ffffff"${else}"\#ff0000"${endif}},
-    
+
+    # RAM
+    { "full_text" : "RAM: ${memperc}% (${mem})" , "color" : \
+    ${if_match ${memperc}<90}"\#ffffff"${else}"\#ff0000"${endif} },
+
+    # Free storage space in root and home
+    { "full_text" : "[/]: ${fs_free_perc /}% Free" , "color" : "\#ffffff" },
+    { "full_text" : "[/home]: ${fs_free_perc /home}% Free", "color" : "\#ffffff" },
+
 
 #    # Networking
 #    # You might want to change wls2, ens3f1 ans enp0s20u1 to whatever
 #    # your `ifconfig` command is saying.
-#    # 
+#    #
 #    # For most debian/ubuntu changing wls2 to wlan0, ens3f1 to eth0 and
 #    # enp0s20u1 should work.
 #    ${if_up wls2} { "full_text" : "(${wireless_essid wls2}) ${addr wls2}" , "color" : "\#00ff00" }, ${else}\
@@ -62,10 +63,13 @@ TEXT
 #        ${endif}\
 #    ${endif}\
 
-	{ "full_text" : "Eth: ${addr ens33}" , "color" : "\#00ff00", "separator" : false },
-	{ "full_text" : "DOWN: ${downspeed ens33}", "color" : "\#ff0000", "separator" : false}, 
-	{ "full_text" : "UP: ${upspeed ens33}", "color" : "\#0000ff" },   
- 
+    { "full_text" : "Eth: ${addr eth0}" , "color" : "\#00ff00", "separator" : false },
+    { "full_text" : "DOWN: ${downspeed eth0}", "color" : "\#ff0000", "separator" : false},
+    { "full_text" : "UP: ${upspeed eth0}", "color" : "\#0000ff" },
+    { "full_text" : "Wlan: ${addr wlan0}" , "color" : "\#00ff00", "separator" : false },
+    { "full_text" : "DOWN: ${downspeed wlan0}", "color" : "\#ff0000", "separator" : false},
+    { "full_text" : "UP: ${upspeed wlan0}", "color" : "\#0000ff" },
+
     # All the charges for the Battery
     # This looks aweful because conky doesn't have an "else if"
     # icon cheet sheet https://fortawesome.github.io/Font-Awesome/cheatsheet/
@@ -76,7 +80,7 @@ TEXT
                     # 100% ish
                     { "full_text" : "${battery_percent}%", "color" : "\#ffffff" }, \
                 ${else}\
-                    # less than 75% 
+                    # less than 75%
                     { "full_text" : "${battery_percent}%", "color" : "\#ffffff" }, \
                 ${endif}\
             ${else}\
@@ -94,8 +98,8 @@ TEXT
 
     # Volume
     { "full_text" : "VOLUME: ${exec amixer get Master -M | grep -oE -m1 "[[:digit:]]*%"}", "color" : "\#ffffff"},
-    
-    # Time 
+
+    # Time
     { "full_text" : "${time %H:%M:%S}" , "color" : "\#ff8800"},
     # Date
     { "full_text" : "${time %a %d/%m}  w.${time %V}" , "color" : "\#ffffff" }
