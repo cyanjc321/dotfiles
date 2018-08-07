@@ -44,7 +44,8 @@ if has("win32") == 0
 endif
 
 " Plugin 'taglist.vim'
-Bundle 'craigemery/vim-autotag'
+" Bundle 'craigemery/vim-autotag'
+Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 
 " Track the engine.
