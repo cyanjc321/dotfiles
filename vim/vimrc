@@ -1,6 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" enable matchit
+packadd! matchit
+
 " set the runtime path to include Vundle and initialize
 if has("win32")
     set rtp+=$HOME/vimfiles/bundle/Vundle.vim
@@ -39,7 +42,7 @@ Plugin 'scrooloose/nerdtree'
 if has("win32") == 0
     Plugin 'Valloric/YouCompleteMe'
     Plugin 'christoomey/vim-tmux-navigator'
-    Plugin 'jeaye/color_coded'
+    " Plugin 'jeaye/color_coded'
     Plugin 'rdnetto/YCM-Generator'
 endif
 
@@ -140,6 +143,10 @@ let g:airline_theme = 'molokai'
 "##############################################################################################
 " verilog_systemverilog
 let g:verilog_disable_indent_lst = "module,interface,preproc,eos"
+let g:verilog_syntax_fold_lst = "comment,instance,function,task,block_named"
+
+autocmd FileType verilog_systemverilog compiler! vcs
+autocmd FileType verilog_systemverilog set makeprg=vcs\ -q\ -sverilog\ +warn=all\ +lint=all\ %
 
 "##############################################################################################
 " miscellaneous
@@ -150,6 +157,7 @@ set exrc
 set secure
 set hlsearch
 set number
+set colorcolumn=110
 set ignorecase      " case insensitive searching
 set smartcase       " but become case sensitive when uppercase characters are typed
 set noshowmode      " dont show (-- INSERT --) at the bottom
@@ -162,7 +170,7 @@ if has("macunix")
 elseif has("win32")
     set guifont=Consolas:h10
 else
-    set guifont=hack\ 10
+    set guifont=hack\ 9
 endif
 
 set guioptions-=T   " remove toolbar
