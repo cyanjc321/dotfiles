@@ -1,12 +1,16 @@
+; (setq debug-on-error t)
 ; List package archives and initialize them
 (require 'package)
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t))
-(when (< emacs-major-version 24)
-  ;; For important compatibility libraries like cl-lib
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  ;;(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "org" (concat proto "://orgmode.org/elpa/")) t)
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives '("gnu" . (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
 ;; Make sure Org is installed
@@ -91,7 +95,7 @@
 (cond ((eq system-type 'gnu/linux)
        (set-frame-font "Hack-10"))
       ((eq system-type 'darwin)
-       (set-frame-font "Andale Mono-10"))
+       (set-frame-font "Hack-11"))
       ((eq system-type 'windows-nt)
        (set-frame-font "Consolas-10")))
 
@@ -125,6 +129,19 @@
 (use-package flyspell
              :diminish (flyspell-mode . "φ")
              :bind* (("M-m ] s" . flyspell-goto-next-error)))
+
+(cond ((eq system-type 'gnu/linux)
+       (setq langtool-language-tool-jar "/usr/local/Cellar/languagetool/4.2/libexec/languagetool-commandline.jar"))
+      ((eq system-type 'darwin)
+       (setq langtool-language-tool-jar "/usr/local/Cellar/languagetool/4.2/libexec/languagetool-commandline.jar"))
+      ((eq system-type 'windows-nt)
+       (setq langtool-language-tool-jar "/usr/local/Cellar/languagetool/4.2/libexec/languagetool-commandline.jar")))
+(use-package langtool
+             :init
+             (setq langtool-disabled-rules '("CURRENCY"
+                                             "COMMA_PARENTHESIS_WHITESPACE"
+                                             "WHITESPACE_RULE"
+                                             )))
 
 (use-package eww
              :bind* (("M-m g x" . eww)
@@ -1033,7 +1050,7 @@
              :ensure t
              :config
              (progn
-               (load-theme 'sanityinc-tomorrow-night t)))
+               (load-theme 'sanityinc-tomorrow-day t)))
 
 (use-package company
              :ensure t
