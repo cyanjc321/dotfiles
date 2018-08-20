@@ -137,6 +137,7 @@
       ((eq system-type 'windows-nt)
        (setq langtool-language-tool-jar "/usr/local/Cellar/languagetool/4.2/libexec/languagetool-commandline.jar")))
 (use-package langtool
+             :ensure t
              :init
              (setq langtool-disabled-rules '("CURRENCY"
                                              "COMMA_PARENTHESIS_WHITESPACE"
