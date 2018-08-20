@@ -131,11 +131,11 @@
              :bind* (("M-m ] s" . flyspell-goto-next-error)))
 
 (cond ((eq system-type 'gnu/linux)
-       (setq langtool-language-tool-jar "/usr/local/Cellar/languagetool/4.2/libexec/languagetool-commandline.jar"))
+       (setq langtool-language-tool-jar "/usr/share/java/languagetool/languagetool-commandline.jar"))
       ((eq system-type 'darwin)
        (setq langtool-language-tool-jar "/usr/local/Cellar/languagetool/4.2/libexec/languagetool-commandline.jar"))
       ((eq system-type 'windows-nt)
-       (setq langtool-language-tool-jar "/usr/local/Cellar/languagetool/4.2/libexec/languagetool-commandline.jar")))
+       (setq langtool-language-tool-jar "")))
 (use-package langtool
              :ensure t
              :init
