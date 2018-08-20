@@ -51,11 +51,6 @@ endif
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 
-" Track the engine.
-Plugin 'SirVer/ultisnips'
-" Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
-
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
@@ -74,10 +69,16 @@ Plugin 'gabrielelana/vim-markdown'
 Plugin 'jceb/vim-orgmode'
 Plugin 'vhda/verilog_systemverilog.vim'
 
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+
 " Color schemes
 Plugin 'CSApprox'
-Plugin 'euclio/vim-nocturne'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'rafi/awesome-vim-colorschemes'
+Plugin 'euclio/vim-nocturne'
 Plugin 'nightsense/office'
 
 " All of your Plugins must be added before the following line
@@ -120,9 +121,9 @@ set cino=b1,g0,N-s,t0,(0,W4 " see :h cinoptions-value
 "##############################################################################################
 " ultisnips settings
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger = "<c-tab>"
+let g:UltiSnipsExpandTrigger = "<c-e>"
 let g:UltiSnipsJumpForwardTrigger = "<c-b>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-z>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-v>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit = "vertical"
@@ -138,7 +139,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 " vim airline
 set laststatus=2  " always on airline bar
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'molokai'
+let g:airline_theme = 'tender'
 
 "##############################################################################################
 " verilog_systemverilog
@@ -146,11 +147,10 @@ let g:verilog_disable_indent_lst = "module,interface,preproc,eos"
 let g:verilog_syntax_fold_lst = "comment,instance,function,task,block_named"
 
 autocmd FileType verilog_systemverilog compiler! vcs
-autocmd FileType verilog_systemverilog set makeprg=vcs\ -q\ -sverilog\ +warn=all\ +lint=all\ %
 
 "##############################################################################################
 " miscellaneous
-colorscheme apprentice
+colorscheme tender
 
 syntax enable
 set exrc
