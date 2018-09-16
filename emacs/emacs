@@ -117,6 +117,9 @@
              :config
              (add-hook 'dired-mode-hook 'dired-hide-details-mode))
 
+(use-package wc-mode
+             :ensure t)
+
 (use-package diminish
              :ensure t
              :demand t
@@ -501,6 +504,22 @@
 (setq org-log-done t)
 (setq org-clock-idle-time 1)
 (setq org-clock-x11idle-program-name "xprintidle")
+(setq org-latex-pdf-process '("texi2dvi --pdf --clean --verbose --batch %f"))
+(setq org-latex-packages-alist '())
+(add-to-list 'org-latex-packages-alist '("" "colortbl" t))
+(add-to-list 'org-latex-packages-alist '("table" "xcolor" t))
+(add-to-list 'org-latex-packages-alist '("" "siunitx" t))
+(add-to-list 'org-latex-packages-alist '("" "longtable" t))
+(add-to-list 'org-latex-packages-alist '("font=small,labelfont=bf" "caption" t))
+(add-to-list 'org-latex-packages-alist '("" "rotating" t))
+(add-to-list 'org-latex-packages-alist '("" "booktabs" t))
+(add-to-list 'org-latex-packages-alist '("" "physics" t))
+(add-to-list 'org-latex-packages-alist '("" "amsmath" t))
+(add-to-list 'org-latex-packages-alist '("" "amssymb" t))
+(add-to-list 'org-latex-packages-alist '("" "xfrac" t))
+(add-to-list 'org-latex-packages-alist '("" "multirow,multicol,array" t))
+(add-to-list 'org-latex-packages-alist '("" "enumitem" t))
+(add-to-list 'org-latex-packages-alist '("LGR,TS1,T1" "fontenc" t))
 (use-package org
              :ensure org
              :bind* (("M-m o a"   . org-agenda)
@@ -618,6 +637,17 @@
 
 (eval-after-load "org"
                  '(require 'ox-gfm nil t))
+
+(use-package org-ref
+             :ensure t
+             :init
+             (setq reftex-default-bibliography '("~/workspace/writings/thesis/thesis.bib"))
+             (setq org-ref-default-bibliography '("~/workspace/writings/thesis/thesis.bib")))
+
+(use-package org-bullets
+             :ensure t
+             :config
+             (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 (use-package helm
              :ensure t
@@ -826,7 +856,7 @@
                           :ensure t
                           :bind* (("M-m SPC b" . helm-bibtex))
                           :init
-                          (setq bibtex-completion-bibliography '("~/Dropbox/org/references/multiphysics.bib" "~/Dropbox/org/references/chanceconstraints.bib" "~/Dropbox/org/references/tensors.bib"))
+                          (setq bibtex-completion-bibliography '("~/workspace/writings/thesis/thesis.bib"))
                           (setq bibtex-completion-library-path "~/Dropbox/org/references/pdfs")
                           (setq bibtex-completion-notes-path "~/Dropbox/org/references/articles.org"))
 
@@ -1048,10 +1078,10 @@
   "g I" "copy remote URL")
 
 (use-package color-theme-sanityinc-tomorrow
-             :ensure t
-             :config
-             (progn
-               (load-theme 'sanityinc-tomorrow-day t)))
+             :ensure t)
+(use-package tangotango-theme
+             :ensure t)
+(load-theme 'tangotango t)
 
 (use-package company
              :ensure t
