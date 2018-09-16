@@ -76,7 +76,7 @@
 
 (setq sentence-end-double-space nil)
 
-(setq search-whitespace-regexp ".*?")
+;;(setq search-whitespace-regexp ".*?")
 
 (savehist-mode)
 
