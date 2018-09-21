@@ -139,7 +139,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 " vim airline
 set laststatus=2  " always on airline bar
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'tender'
+let g:airline_theme = 'molokai'
 
 "##############################################################################################
 " verilog_systemverilog
@@ -150,7 +150,7 @@ autocmd FileType verilog_systemverilog compiler! vcs
 
 "##############################################################################################
 " miscellaneous
-colorscheme tender
+colorscheme tango2
 
 syntax enable
 set exrc
