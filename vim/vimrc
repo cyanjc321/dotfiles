@@ -38,12 +38,12 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/nerdtree'
 
-" Plugin 'scrooloose/syntastic'
 if has("win32") == 0
     Plugin 'Valloric/YouCompleteMe'
     Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'jeaye/color_coded'
     Plugin 'rdnetto/YCM-Generator'
+    Plugin 'vim-syntastic/syntastic'
 endif
 
 " Plugin 'taglist.vim'
@@ -110,14 +110,15 @@ set cino=b1,g0,N-s,t0,(0,W4 " see :h cinoptions-value
 
 "##############################################################################################
 " syntastic settings
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_python_exec = 'python3'
 
 "##############################################################################################
 " ultisnips settings
