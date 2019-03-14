@@ -38,9 +38,14 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/nerdtree'
 
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
 if has("win32") == 0
     Plugin 'Valloric/YouCompleteMe'
-    Plugin 'christoomey/vim-tmux-navigator'
+    if has("gui_running") == 0
+        Plugin 'christoomey/vim-tmux-navigator'
+    endif
     Plugin 'jeaye/color_coded'
     Plugin 'rdnetto/YCM-Generator'
     Plugin 'vim-syntastic/syntastic'
@@ -51,12 +56,10 @@ endif
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-
 Plugin 'cyanjc321/Smart-Tabs'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'godlygeek/tabular'
+Plugin 'jiangmiao/auto-pairs'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tpope/vim-speeddating'
@@ -76,11 +79,13 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
 " Color schemes
-Plugin 'CSApprox'
+if has("gui_running") == 0
+    Plugin 'CSApprox'
+endif
 Plugin 'flazz/vim-colorschemes'
-Plugin 'rafi/awesome-vim-colorschemes'
-Plugin 'euclio/vim-nocturne'
-Plugin 'nightsense/office'
+"Plugin 'rafi/awesome-vim-colorschemes'
+"Plugin 'euclio/vim-nocturne'
+"Plugin 'nightsense/office'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -136,6 +141,14 @@ let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_autoclose_preview_window_after_completion = 1
+nnoremap <leader>gt :YcmCompleter GoTo<CR>
+nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
+nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gt :YcmCompleter GetType<CR>
+nnoremap <leader>gp :YcmCompleter GetParent<CR>
+nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+nnoremap <leader>fi :YcmCompleter FixIt<CR>
 
 "##############################################################################################
 " vim airline
@@ -156,7 +169,7 @@ let g:grammarous#use_vim_spelllang = 1
 
 "##############################################################################################
 " miscellaneous
-colorscheme luna
+colorscheme molokai
 
 syntax enable
 set exrc
@@ -189,10 +202,10 @@ set guioptions-=M   " stop source $VIMRUNTIME/menu.vim
 
 " key remap
 " split navigation
-nnoremap <c-W h>: c-h
-nnoremap <c-W j>: c-j
-nnoremap <c-W k>: c-k
-nnoremap <c-W l>: c-l
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <C-l> :wincmd l<CR>
 
 " remove trailing space for some languages
 autocmd FileType c,cpp,java,php,verilog_systemverilog,python,ruby,sh,zsh,cs autocmd BufWritePre <buffer> %s/\s\+$//e
