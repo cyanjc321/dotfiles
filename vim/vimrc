@@ -168,6 +168,14 @@ let g:grammarous#languagetool_cmd = 'languagetool'
 let g:grammarous#use_vim_spelllang = 1
 
 "##############################################################################################
+" tagbar
+nnoremap <F8> :TagbarToggle<CR>
+
+"##############################################################################################
+" auto-pairs
+let g:AutoPairsFlyMode = 1
+
+"##############################################################################################
 " miscellaneous
 colorscheme molokai
 
@@ -199,6 +207,10 @@ set guioptions-=r   " remove right-hand scrollbar
 set guioptions-=R   " remove right-hand scrollbar
 set guioptions-=m   " remove menu bar
 set guioptions-=M   " stop source $VIMRUNTIME/menu.vim
+
+if has("macunix")
+    set macmeta
+endif
 
 " key remap
 " split navigation
