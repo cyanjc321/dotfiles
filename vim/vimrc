@@ -43,9 +43,7 @@ Plugin 'vim-airline/vim-airline-themes'
 
 if has("win32") == 0
     Plugin 'Valloric/YouCompleteMe'
-    if has("gui_running") == 0
-        Plugin 'christoomey/vim-tmux-navigator'
-    endif
+    Plugin 'christoomey/vim-tmux-navigator'
     Plugin 'jeaye/color_coded'
     Plugin 'rdnetto/YCM-Generator'
     Plugin 'vim-syntastic/syntastic'
@@ -174,7 +172,17 @@ nnoremap <F8> :TagbarToggle<CR>
 "##############################################################################################
 " auto-pairs
 let g:AutoPairsFlyMode = 1
-
+if has("macunix")
+    let g:AutoPairsShortcutToggle = "π" "<M-p>
+    let g:AutoPairsShortcutFastWrap = "∑" "<M-w>
+    let g:AutoPairsShortcutJump = "∆" "<M-j>
+    let g:AutoPairsShortcutBackInsert = "∫" "<M-b>
+else
+    let g:AutoPairsShortcutToggle = "<M-p>"
+    let g:AutoPairsShortcutFastWrap = "<M-w>"
+    let g:AutoPairsShortcutJump = "<M-j>"
+    let g:AutoPairsShortcutBackInsert = "<M-b>"
+endif
 "##############################################################################################
 " miscellaneous
 colorscheme molokai
@@ -207,10 +215,6 @@ set guioptions-=r   " remove right-hand scrollbar
 set guioptions-=R   " remove right-hand scrollbar
 set guioptions-=m   " remove menu bar
 set guioptions-=M   " stop source $VIMRUNTIME/menu.vim
-
-if has("macunix")
-    set macmeta
-endif
 
 " key remap
 " split navigation
