@@ -1,0 +1,6 @@
+!
+! swap caps_lock and F10
+!
+clear lock
+keycode 66 = F10 Caps_Lock NoSymbol NoSymbol
+

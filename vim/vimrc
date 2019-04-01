@@ -185,7 +185,7 @@ else
 endif
 "##############################################################################################
 " miscellaneous
-colorscheme molokai
+colorscheme gruvbox
 
 syntax enable
 set exrc
