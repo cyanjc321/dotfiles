@@ -178,10 +178,18 @@ if has("macunix")
     let g:AutoPairsShortcutJump = "∆" "<M-j>
     let g:AutoPairsShortcutBackInsert = "∫" "<M-b>
 else
-    let g:AutoPairsShortcutToggle = "<M-p>"
-    let g:AutoPairsShortcutFastWrap = "<M-w>"
-    let g:AutoPairsShortcutJump = "<M-j>"
-    let g:AutoPairsShortcutBackInsert = "<M-b>"
+    if has("gui_running")
+        let g:AutoPairsShortcutToggle = "<M-p>"
+        let g:AutoPairsShortcutFastWrap = "<M-w>"
+        let g:AutoPairsShortcutJump = "<M-j>"
+        let g:AutoPairsShortcutBackInsert = "<M-b>"
+    else
+        " assume console issues escape sequence
+        let g:AutoPairsShortcutToggle = "<ESC>p"
+        let g:AutoPairsShortcutFastWrap = "<ESC>w"
+        let g:AutoPairsShortcutJump = "<ESC>j"
+        let g:AutoPairsShortcutBackInsert = "<ESC>b"
+    endif
 endif
 "##############################################################################################
 " miscellaneous
