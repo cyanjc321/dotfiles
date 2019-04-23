@@ -44,7 +44,12 @@ Plugin 'vim-airline/vim-airline-themes'
 if has("win32") == 0
     Plugin 'Valloric/YouCompleteMe'
     Plugin 'christoomey/vim-tmux-navigator'
-    Plugin 'jeaye/color_coded'
+    if has("nvim")
+        Plugin 'arakashic/chromatica.nvim'
+        Plugin 'numirias/semshi'
+    else
+        Plugin 'jeaye/color_coded'
+    endif
     Plugin 'rdnetto/YCM-Generator'
     Plugin 'vim-syntastic/syntastic'
 endif
@@ -209,12 +214,12 @@ set backspace=indent,eol,start
 set cmdheight=2     " number of line to use for command-line
 set tags=./tags;/   " look for tags in current dir and every dir above until root
 
-if has("macunix")
-    set guifont=hack:h11
+if has("gui_gtk")
+    set guifont=hack\ 9
 elseif has("win32")
     set guifont=Consolas:h10
 else
-    set guifont=hack\ 9
+    set guifont=Hack:h9
 endif
 
 set guioptions-=T   " remove toolbar
