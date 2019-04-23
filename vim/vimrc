@@ -196,6 +196,7 @@ endif
 colorscheme gruvbox
 
 syntax enable
+set background=dark
 set exrc
 set secure
 set hlsearch
