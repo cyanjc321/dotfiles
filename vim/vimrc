@@ -2,7 +2,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " enable matchit
-packadd! matchit
+runtime macros/matchit.vim
 
 " set the runtime path to include Vundle and initialize
 if has("win32")
