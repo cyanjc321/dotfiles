@@ -197,6 +197,12 @@ else
     endif
 endif
 "##############################################################################################
+" chromatica, required llvm-config in $PATH
+let g:chromatica#libclang_path = substitute(system('llvm-config --libdir'), '\n', '/', '')
+let g:chromatica#global_args = ['-isystem'.substitute(system('llvm-config --includedir'), '\n', '', '')]
+let g:chromatica#enable_at_startup = 1
+
+"##############################################################################################
 " miscellaneous
 colorscheme gruvbox
 
