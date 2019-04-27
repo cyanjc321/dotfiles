@@ -198,7 +198,12 @@ else
 endif
 "##############################################################################################
 " chromatica, required llvm-config in $PATH
-let g:chromatica#libclang_path = substitute(system('llvm-config --libdir'), '\n', '/', '')
+" set path to file according to os, required to enable logging for now
+if has("macunix")
+    let g:chromatica#libclang_path = substitute(system('llvm-config --libdir'), '\n', '/libclang.dylib', '')
+else
+    let g:chromatica#libclang_path = substitute(system('llvm-config --libdir'), '\n', '/libclang.so', '')
+endif
 let g:chromatica#global_args = ['-isystem'.substitute(system('llvm-config --includedir'), '\n', '', '')]
 let g:chromatica#enable_at_startup = 1
 
