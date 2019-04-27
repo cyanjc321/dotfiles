@@ -183,13 +183,14 @@ if has("macunix")
     let g:AutoPairsShortcutJump = "∆" "<M-j>
     let g:AutoPairsShortcutBackInsert = "∫" "<M-b>
 else
-    if has("gui_running")
+    if has("gui_running") || has("nvim")
         let g:AutoPairsShortcutToggle = "<M-p>"
         let g:AutoPairsShortcutFastWrap = "<M-w>"
         let g:AutoPairsShortcutJump = "<M-j>"
         let g:AutoPairsShortcutBackInsert = "<M-b>"
     else
         " assume console issues escape sequence
+        " note this result in slow <esc> switching between insert and normal mode
         let g:AutoPairsShortcutToggle = "<ESC>p"
         let g:AutoPairsShortcutFastWrap = "<ESC>w"
         let g:AutoPairsShortcutJump = "<ESC>j"
