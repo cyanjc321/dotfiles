@@ -321,6 +321,7 @@
 (modalka-define-kbd "+" "C-x r m")
 (modalka-define-kbd "'" "C-x r b")
 (modalka-define-kbd "\\" "C-c C-c")
+(modalka-define-kbd "u" "C-x u")
 
 (modalka-define-kbd "g g" "M-<")
 (modalka-define-kbd "g o" "C-x C-e")
@@ -359,6 +360,7 @@
 (modalka-define-kbd ": q" "C-x C-c")
 (modalka-define-kbd ": r" "C-x M-c")
 (modalka-define-kbd ": t" "M-m : t")
+(modalka-define-kbd ": w" "C-x C-s")
 
 (modalka-define-kbd "g U" "C-c C-k")
 (modalka-define-kbd "SPC j" "M-x")
@@ -435,7 +437,8 @@
   "="   "indent region"
   "\\"  "C-c C-c"
   "!"   "async shell command"
-  "&"   "shell command")
+  "&"   "shell command"
+  "u"   "undo")
 
 (which-key-add-key-based-replacements
   "g"   "global prefix"
@@ -483,7 +486,8 @@
   ":"   "extended prefix"
   ": q" "quit emacs"
   ": r" "restart emacs"
-  ": t" "initiliazation time")
+  ": t" "initiliazation time"
+  ": w" "save buffer")
 
 (which-key-add-key-based-replacements
   "SPC"   "custom prefix"
