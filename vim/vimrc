@@ -75,6 +75,7 @@ Plugin 'gabrielelana/vim-markdown'
 Plugin 'jceb/vim-orgmode'
 Plugin 'rhysd/vim-grammarous'
 Plugin 'vhda/verilog_systemverilog.vim'
+Plugin 'richq/vim-cmake-completion'
 
 " Track the engine.
 Plugin 'SirVer/ultisnips'
