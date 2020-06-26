@@ -219,7 +219,7 @@ set exrc
 set secure
 set hlsearch
 set number
-set colorcolumn=110
+set colorcolumn=80
 set ignorecase      " case insensitive searching
 set smartcase       " but become case sensitive when uppercase characters are typed
 set noshowmode      " dont show (-- INSERT --) at the bottom

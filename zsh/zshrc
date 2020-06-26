@@ -1,9 +1,3 @@
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-bindkey -v
-
 # The lines added by compinstall
 zstyle :compinstall filename "${HOME}/.zshrc"
 
@@ -11,10 +5,10 @@ autoload -Uz compinit
 compinit
 
 # Lines for antigen setup
-if [[ $(uname -s) == "Darwin" ]]
-then
+if uname -s | grep -qi darwin; then
     source $(brew --prefix)/share/antigen/antigen.zsh
 else
+    # the following is for Arch Linux AUR package antigen-git only
     source /usr/share/zsh/share/antigen.zsh
 fi
 
@@ -23,9 +17,7 @@ antigen use oh-my-zsh
 
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle git
-antigen bundle heroku
 antigen bundle pip
-antigen bundle lein
 antigen bundle command-not-found
 
 # Syntax highlighting bundle.
@@ -37,36 +29,23 @@ antigen theme robbyrussell
 # Tell Antigen that you're done.
 antigen apply
 
-# Set GPG TTY
-if [[ $(uname -s) == "Linux" ]]
-then
-    if grep -c "arch" /etc/os-release > /dev/null 2>&1; then
-        # Start the gpg-agent if not already running
-        if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
-            gpg-connect-agent /bye >/dev/null 2>&1
-        fi
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -v
+unsetopt nomatch
 
-        # Set SSH to use gpg-agent
-        unset SSH_AGENT_PID
-        if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-            export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
-        fi
+# Start SSH agent
+if uname -s | grep -qi linux; then
+    # Set XDG_RUNTIME_DIR, this is usually set by pam_systemd
+    if [ -z $XDG_RUNTIME_DIR ]; then
+        export XDG_RUNTIME_DIR=/tmp
     fi
-
-    if grep -c "ubuntu" /etc/os-release > /dev/null 2>&1; then
-        # Start the gpg-agent if not already running
-        if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
-            gpg-agent --daemon --enable-ssh-support
-        fi
-
-        # Set SSH to use gpg-agent
-        unset SSH_AGENT_PID
-        if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-            export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-        fi
+    if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+        ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
     fi
-
-    export GPG_TTY=$(tty)
-    # Refresh gpg-agent tty in case user switches into an X session
-    gpg-connect-agent updatestartuptty /bye >/dev/null
+    if [ ! -z "$SSH_AUTH_SOCK" ]; then
+        source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+    fi
 fi
