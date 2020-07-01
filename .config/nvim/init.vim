@@ -1,1 +1,1 @@
-/Users/jiangchao/.vimrc
+../../.vimrc
