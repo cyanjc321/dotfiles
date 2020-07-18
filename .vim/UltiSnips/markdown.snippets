@@ -1,0 +1,24 @@
+snippet "jqdreq" "JQ Data analysis request" r
+${1:Title}
+
+${2:Context}
+1. Server: ${3:Server Name}
+2. API:
+  - ${4:API Name}: ${5: File Name}
+
+3. Collecting time: From ${6:`date "+%m-%d %H:%M"`} ${7:End time}
+4. Tasks:
+  -${8:Task Description}
+  $0
+
+Data is in DataTeamShared\\${9:Folder}
+endsnippet
+
+snippet "jqtreq" "JQ exe check request" r
+${1:Title}
+
+${2:Context}
+1. Action:  ${4:Actions}
+2. Account: ${5:Accounts}
+3. Time:    ${6:`date +%Y-%m-%d`}
+endsnippet
