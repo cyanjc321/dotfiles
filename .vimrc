@@ -1,4 +1,5 @@
-set nocompatible              " be iMproved, required
+" be iMproved, required
+set nocompatible
 
 " enable matchit
 runtime macros/matchit.vim
@@ -30,7 +31,9 @@ Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 "Plug 'rhysd/vim-clang-format'
-Plug 'numirias/semshi'
+if has("nvim")
+    Plug 'numirias/semshi'
+endif
 Plug 'OrangeT/vim-csharp'
 Plug 'gabrielelana/vim-markdown'
 Plug 'jceb/vim-orgmode'
