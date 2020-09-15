@@ -20,9 +20,9 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
+Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
-Plug 'majutsushi/tagbar'
 "Plug 'taglist.vim'
 "Plug 'craigemery/vim-autotag'
 
@@ -92,6 +92,12 @@ let g:grammarous#use_vim_spelllang = 1
 "##############################################################################################
 " tagbar
 nnoremap <F8> :TagbarToggle<CR>
+
+"##############################################################################################
+" gutentags/gutentags_plus
+let g:gutentags_modules = ['ctags', 'gtags_cscope']
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+let g:gutentags_plus_switch = 1
 
 "##############################################################################################
 " auto-pairs
@@ -281,7 +287,6 @@ set smartcase       " but become case sensitive when uppercase characters are ty
 set noshowmode      " dont show (-- INSERT --) at the bottom
 set backspace=indent,eol,start
 set cmdheight=2     " number of line to use for command-line
-set tags=./tags;/   " look for tags in current dir and every dir above until root
 
 if has("gui_gtk")
     set guifont=hack\ 9
