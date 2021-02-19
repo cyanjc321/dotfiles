@@ -272,46 +272,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 "##############################################################################################
-" miscellaneous
-colorscheme gruvbox
-
-syntax enable
-set background=dark
-set exrc
-set secure
-set hlsearch
-set number
-set colorcolumn=80
-set ignorecase      " case insensitive searching
-set smartcase       " but become case sensitive when uppercase characters are typed
-set noshowmode      " dont show (-- INSERT --) at the bottom
-set backspace=indent,eol,start
-set cmdheight=2     " number of line to use for command-line
-
-if has("gui_gtk")
-    set guifont=hack\ 9
-elseif has("win32")
-    set guifont=Consolas:h10
-else
-    set guifont=Hack:h9
-endif
-
-set guioptions-=T   " remove toolbar
-set guioptions-=l   " remove left-hand scrollbar
-set guioptions-=L   " remove left-hand scrollbar
-set guioptions-=r   " remove right-hand scrollbar
-set guioptions-=R   " remove right-hand scrollbar
-set guioptions-=m   " remove menu bar
-set guioptions-=M   " stop source $VIMRUNTIME/menu.vim
-
-" key remap
-" split navigation
-nnoremap <C-h> :wincmd h<CR>
-nnoremap <C-j> :wincmd j<CR>
-nnoremap <C-k> :wincmd k<CR>
-nnoremap <C-l> :wincmd l<CR>
-
-" remove trailing space for some languages
+" user defined functions
 function ShowSpaces(...)
     let @/='\v(\s+$)|( +\ze\t)'
     let oldhlsearch=&hlsearch
@@ -331,6 +292,50 @@ endfunction
 
 command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+
+"##############################################################################################
+" miscellaneous
+colorscheme gruvbox
+
+syntax enable
+set background=dark
+set exrc
+set secure
+set hlsearch
+set number
+set colorcolumn=80
+set ignorecase      " case insensitive searching
+set smartcase       " but become case sensitive when uppercase characters are typed
+set noshowmode      " dont show (-- INSERT --) at the bottom
+set backspace=indent,eol,start
+set cmdheight=2     " number of line to use for command-line
+
+" default fonts
+if has("gui_gtk")
+    set guifont=hack\ 9
+elseif has("win32")
+    set guifont=Consolas:h10
+else
+    set guifont=Hack:h9
+endif
+
+" gui setup
+set guioptions-=T   " remove toolbar
+set guioptions-=l   " remove left-hand scrollbar
+set guioptions-=L   " remove left-hand scrollbar
+set guioptions-=r   " remove right-hand scrollbar
+set guioptions-=R   " remove right-hand scrollbar
+set guioptions-=m   " remove menu bar
+set guioptions-=M   " stop source $VIMRUNTIME/menu.vim
+
+" key remap
+" split navigation
+nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <C-l> :wincmd l<CR>
+
+" space trimming
 nnoremap <F12>   :ShowSpaces 1<CR>
 nnoremap <S-F12> m`:TrimSpaces<CR>``
 vnoremap <S-F12> :TrimSpaces<CR>

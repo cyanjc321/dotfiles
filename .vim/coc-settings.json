@@ -1,3 +1,5 @@
 {
-    "clangd.semanticHighlighting": true
+    "clangd.semanticHighlighting": true,
+    "yaml.format.enable": true,
+    "typescript.format.enabled": true
 }

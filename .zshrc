@@ -19,12 +19,13 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle pip
 antigen bundle command-not-found
+antigen bundle thewtex/tmux-mem-cpu-load
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Load the theme.
-antigen theme robbyrussell
+antigen theme amuse
 
 # Tell Antigen that you're done.
 antigen apply
